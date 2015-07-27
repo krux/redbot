@@ -100,7 +100,9 @@ EOF
 
 # Copy other resources into the package
 BINDIR="${TARGET}/bin"
+SHAREDIR="${TARGET}/share"
 cp -a bin/* $BINDIR/
+cp -a share/* $SHAREDIR/
 
 # create the package
 fpm --verbose -s dir -t deb -n "${PACKAGE_NAME}" --prefix "${DEST_DIR}" -v "${VERSION}" -C "${BUILD_DIR}" .
