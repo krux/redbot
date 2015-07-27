@@ -9,6 +9,7 @@ DEST_DIR="/usr/local"
 PACKAGE_DIR="/krux-${PACKAGE_NAME}"
 
 PIP_VERSION="1.4.1"
+REQUIREMENTS="requirements.pip"
 
 BUILD_DIR=".build"
 TARGET="${BUILD_DIR}${PACKAGE_DIR}"
@@ -48,7 +49,9 @@ source "${TARGET}/bin/activate"
 
 # set up pip, install any requirements needed
 pip install $PIP_OPTIONS "pip==${PIP_VERSION}"
-pip install $PIP_OPTIONS -r requirements.pip -I
+if [ -f $REQUIREMENTS ]; then
+    pip install $PIP_OPTIONS -r $REQUIREMENTS -I
+fi
 
 # install the application into the virtualenv
 python setup.py install
@@ -61,7 +64,7 @@ BUILD_NUMBER="${BUILD_NUMBER-development}"
 DEFAULT_VERSION="$(python setup.py --version)-${BUILD_NUMBER}"
 VERSION="${VERSION-${DEFAULT_VERSION}}"
 
-# clean and update the virtualenv environment 
+# clean and update the virtualenv environment
 #
 # XXX This does the magic needed to make the virtualenv work
 # from $DEST_DIR, which is where the package will install it.
