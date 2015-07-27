@@ -101,6 +101,7 @@ EOF
 # Copy other resources into the package
 BINDIR="${TARGET}/bin"
 SHAREDIR="${TARGET}/share"
+mkdir -p $BINDIR $SHAREDIR
 cp -a bin/* $BINDIR/
 cp -a share/* $SHAREDIR/
 
