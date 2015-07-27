@@ -99,7 +99,7 @@ for item in rcp.items('console_scripts'):
 EOF
 
 # Copy other resources into the package
-BINDIR="${DEST_DIR}${PACKAGE_DIR}/bin"
+BINDIR="${TARGET}/bin"
 cp -a bin/* $BINDIR/
 
 # create the package
