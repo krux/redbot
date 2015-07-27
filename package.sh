@@ -56,9 +56,6 @@ fi
 # install the application into the virtualenv
 python setup.py install
 
-# XXX test the application
-#nosetests
-
 BUILD_NUMBER="${BUILD_NUMBER-development}"
 
 DEFAULT_VERSION="$(python setup.py --version)-${BUILD_NUMBER}"
@@ -100,6 +97,10 @@ for item in rcp.items('console_scripts'):
         os.remove(dest)
     os.symlink(src, dest)
 EOF
+
+# Copy other resources into the package
+BINDIR="${DEST_DIR}${PACKAGE_DIR}/bin"
+cp -a bin/* $BINDIR/
 
 # create the package
 fpm --verbose -s dir -t deb -n "${PACKAGE_NAME}" --prefix "${DEST_DIR}" -v "${VERSION}" -C "${BUILD_DIR}" .
